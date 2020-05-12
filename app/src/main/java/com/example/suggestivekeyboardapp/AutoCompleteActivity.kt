@@ -13,22 +13,14 @@ class AutoCompleteActivity : Activity() {
 
         setContentView(R.layout.activity_autocomplete)
 
-        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
-            this,
-            android.R.layout.simple_dropdown_item_1line, COUNTRIES
-        )
-
         val textView = findViewById<AutoCompleteTextView>(R.id.autocomplete_textview)
         val countries: Array<out String> = resources.getStringArray(R.array.countries_array)
 
-        ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries).also { adapter ->
-            textView.setAdapter(adapter)
-        }
+        ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, countries)
+            .also {
+                textView.setAdapter(it)
+            }
     }
-
-    private val COUNTRIES = arrayOf(
-        "Belgium", "France", "Italy", "Germany", "Spain"
-    )
 
     fun Back(v: View?) {
         finish()
