@@ -19,7 +19,7 @@ import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.mccorby.smartkeyboard.R
+import com.example.suggestivekeyboardapp.R
 import kotlinx.android.synthetic.main.layout_candidate.view.*
 
 /**

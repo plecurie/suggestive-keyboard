@@ -10,7 +10,7 @@
 
     <EditText
             android:id="@+id/edit_area"
-            android:hint="Write here"
+            android:hint="@string/write_here"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/candidate_background"

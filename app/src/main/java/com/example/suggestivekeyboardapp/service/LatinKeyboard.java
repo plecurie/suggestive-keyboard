@@ -21,7 +21,7 @@ import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
 import android.view.inputmethod.EditorInfo;
-import com.mccorby.smartkeyboard.R;
+import com.example.suggestivekeyboardapp.R;
 
 public class LatinKeyboard extends Keyboard {
     private Key mEnterKey;

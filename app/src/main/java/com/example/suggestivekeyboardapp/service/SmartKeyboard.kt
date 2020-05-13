@@ -16,7 +16,7 @@ import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.InputMethodSubtype
 import com.example.suggestivekeyboardapp.machinelearning.nlp.LanguageModel
 import com.example.suggestivekeyboardapp.machinelearning.nlp.NGrams
-import com.mccorby.smartkeyboard.R
+import com.example.suggestivekeyboardapp.R
 import org.koin.android.ext.android.inject
 import kotlin.math.max
 
