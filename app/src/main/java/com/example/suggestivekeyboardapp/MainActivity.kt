@@ -1,9 +1,8 @@
 package com.example.suggestivekeyboardapp
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.mccorby.smartkeyboard.R
 
 
 class MainActivity : AppCompatActivity() {
@@ -11,10 +10,5 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-    }
-
-    fun Go(v: View?) {
-        val intent = Intent(this, AutoCompleteActivity::class.java)
-        startActivity(intent)
     }
 }

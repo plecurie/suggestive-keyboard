@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.example.suggestivekeyboardapp.MainActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-android:orientation="vertical"
-android:gravity="center_horizontal"
-    >
 
-<TextView
-    android:id="@+id/textView2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Accueil"
-    android:textAppearance="?android:attr/textAppearanceLarge"
-    android:layout_marginTop="80dp"/>
+    <EditText
+            android:id="@+id/edit_area"
+            android:hint="Write here"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/candidate_background"
+            android:layout_alignParentTop="true"
+            android:inputType="text"
+            style="@android:style/TextAppearance.Material.Title"
+    />
 
-<Button
-    android:layout_marginTop="80dp"
-    android:id="@+id/button2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Next"
-    android:onClick="Go" />
-
-</LinearLayout>
+</RelativeLayout>
