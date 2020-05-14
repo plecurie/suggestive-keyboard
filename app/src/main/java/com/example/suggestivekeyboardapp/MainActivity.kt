@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        insertData("previous", "current", "count")
+        //insertData("previous", "current", "count")
         viewAll()
     }
 

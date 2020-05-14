@@ -535,6 +535,7 @@ class SmartKeyboard : InputMethodService(), KeyboardView.OnKeyboardActionListene
         }
         composing.append(suggestion)
         currentInputConnection.setComposingText(composing, 1)
+        keyDownUp(KeyEvent.KEYCODE_SPACE)
     }
 
     override fun swipeRight() {}
