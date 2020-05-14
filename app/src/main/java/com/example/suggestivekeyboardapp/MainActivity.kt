@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        insertData("previous", "current", "rank")
+        insertData("previous", "current", "count")
         viewAll()
     }
 
@@ -24,8 +24,8 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    private fun insertData(previous: String, current: String, rank: String) {
-        val isInserted = dbHelper.addData(previous,current,rank)
+    private fun insertData(previous: String, current: String, count: String) {
+        val isInserted = dbHelper.addData(previous,current,count)
         if (isInserted)
             Toast.makeText(this, "Data Inserted Successfully", Toast.LENGTH_LONG).show()
         else
