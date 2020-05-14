@@ -3,19 +3,16 @@ package com.example.suggestivekeyboardapp.machinelearning.examples
 import arrow.core.Try
 import arrow.core.getOrElse
 import com.example.suggestivekeyboardapp.machinelearning.nlp.*
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
+import java.io.*
 
 suspend fun main(args: Array<String>) {
-    if (args.size < 3) {
+    if(args.isEmpty()){
         println("Usage: <text_file_in_resources> <save_dir> <ngram_order> [evaluate]")
-        println("Example: /titles.txt /tmp/saved_model 4 true")
+        println("Example: './app/src/main/assets/test.txt' './app/src/main/assets/saved_model' 4 true")
         return
     }
 
-    val data = object {}.javaClass.getResource(args[0]).readText()
+    val data = File(args[0]).readText()
     val modelFile = args[1]
     val order = args[2].toInt()
     val evaluate = args.getOrElse(3) { "false" }.toBoolean()
