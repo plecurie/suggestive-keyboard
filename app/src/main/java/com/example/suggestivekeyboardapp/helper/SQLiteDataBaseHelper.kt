@@ -7,12 +7,16 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import java.io.BufferedReader
 import java.io.FileReader
+import java.io.InputStream
+import java.net.URL
+import java.util.concurrent.Executors
 
 
 class SQLiteDataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
 
     override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL("CREATE table $TABLE_NAME (PREVIOUS TEXT, CURRENT TEXT, COUNT INTEGER) ")
+        db.execSQL("CREATE table $TABLE_NAME (PREVIOUS TEXT, CURRENT TEXT, COUNT INTEGER) ");
+        getRecommandations();
     }
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
@@ -28,36 +32,42 @@ class SQLiteDataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABAS
         return db.rawQuery("SELECT * FROM $TABLE_NAME", null)
     }
 
-    fun retrieveRecommandationData(db: SQLiteDatabase, fileName: String) {
-        val file = FileReader(fileName)
-        val buffer = BufferedReader(file)
-        var line = ""
-        val tableName = "TABLE_NAME"
-        val columns = "PREVIOUS, CURRENT, COUNT"
-        val str1 = "INSERT INTO $tableName ($columns) values("
-        val str2 = ");"
+    private fun getRecommandations() {
+        Executors.newSingleThreadExecutor().execute {
+            val count : Int = URL("https://cdn.backinapp.com/test/spark/2Gram.txt").readText().toInt()
+            for (i in 1..count) {
+                val inputStream: InputStream = URL("https://cdn.backinapp.com/test/spark/2Gram.csv/${i}.csv").openStream()
+                val reader = inputStream.bufferedReader()
+                for (line in reader.lines()) {
+                    if (!line.contains("PREVIOUS", ignoreCase = true)) {
+                        val data = line.split(',')
+                        if (data.size == 3)
+                            this.addData(data[0], data[1], data[2])
+                    }
+                }
+            }
 
-        db.beginTransaction()
-        while (buffer.readLine().also({ line = it }) != null) {
-            val sb = StringBuilder(str1)
-            val str = line.split(",").toTypedArray()
-            sb.append("'" + str[0] + "',")
-            sb.append(str[1] + "',")
-            sb.append(str[2] + "',")
-            sb.append(str[3] + "'")
-            sb.append(str[4] + "'")
-            sb.append(str2)
-            db.execSQL(sb.toString())
+            val count2 : Int = URL("https://cdn.backinapp.com/test/spark/3Gram.txt").readText().toInt()
+            for (i in 1..count2) {
+                println("https://cdn.backinapp.com/test/spark/3Gram.csv/${i}.csv");
+                val inputStream: InputStream = URL("https://cdn.backinapp.com/test/spark/3Gram.csv/${i}.csv").openStream()
+                val reader = inputStream.bufferedReader()
+                for (line in reader.lines()) {
+                    if (!line.contains("PREVIOUS", ignoreCase = true)) {
+                        val data = line.split(',')
+                        if (data.size == 3)
+                            this.addData(data[0], data[1], data[2])
+                    }
+                }
+            }
         }
-        db.setTransactionSuccessful()
-        db.endTransaction()
     }
 
     fun addData(previous: String, current: String, count: String) : Boolean {
         val db : SQLiteDatabase = this.writableDatabase
         val contenValues : ContentValues = ContentValues()
-        contenValues.put(COL_1, current)
-        contenValues.put(COL_2, previous)
+        contenValues.put(COL_1, previous)
+        contenValues.put(COL_2, current)
         contenValues.put(COL_3, count)
         val result: Long = db.insert(TABLE_NAME, null, contenValues)
         return !result.equals(-1)
