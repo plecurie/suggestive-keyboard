@@ -8,4 +8,5 @@
     <string name="label_next_key">Next</string>
     <string name="label_send_key">Send</string>
     <string name="write_here">Write here</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

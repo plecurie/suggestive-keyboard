@@ -1,22 +1,37 @@
 package com.example.suggestivekeyboardapp
 
-import android.database.sqlite.SQLiteDatabase
+import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.util.Log
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.suggestivekeyboardapp.helper.SQLiteDataBaseHelper
+import com.google.android.material.snackbar.Snackbar
 
-class MainActivity : AppCompatActivity() {
+open class MainActivity : AppCompatActivity() {
 
     var dbHelper : SQLiteDataBaseHelper = SQLiteDataBaseHelper(this)
+    var duration  = 8000000
+
+//    val intente = Intent(this, MapsActivity::class.java)
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        var message = findViewById<EditText>(R.id.edit_area)
 
-        insertData("previous", "current", "rank")
+        // insertData("previous", "current", "rank")
+
         viewAll()
+        var btn = findViewById<Button>(R.id.btnval)
+        btn.setOnClickListener {  popResto(message.text.toString()) }
+
     }
 
     override fun onDestroy() {
@@ -50,4 +65,35 @@ class MainActivity : AppCompatActivity() {
         builder.setMessage(message)
         builder.show()
     }
+
+
+    private fun popResto(msg: String) {
+        var snackMessage = "voir les restaurants pour " + " " + msg + " ?"
+
+        val mySnackbar = Snackbar.make(findViewById(R.id.edit_area), snackMessage, duration)
+        Log.i("toto2","to2to")
+
+        mySnackbar.setAction("afficher", MyrestoListener())
+
+
+
+
+
+        if (msg == "poulet" || msg =="cheval"){ //    TODO ici changer la variuable par la list de la detection de bouf
+            mySnackbar.show()
+            Log.i("toto","victory")
+
+        }
+
+    }
+    fun changeview(){
+        Log.i("toto2","lunchactmap")
+
+       // startActivity(intente)
+    }
+    private fun concol() {
+        Log.i("toto2","relunch main ")
+
+    }
 }
+

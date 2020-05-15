@@ -9,14 +9,26 @@
 
 
     <EditText
-            android:id="@+id/edit_area"
-            android:hint="@string/write_here"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/candidate_background"
-            android:layout_alignParentTop="true"
-            android:inputType="text"
-            style="@android:style/TextAppearance.Material.Title"
-    />
+        android:id="@+id/edit_area"
+        style="@android:style/TextAppearance.Material.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="237dp"
+        android:background="@color/candidate_background"
+        android:hint="@string/write_here"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/btnval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="157dp"
+        android:layout_marginTop="321dp"
+        android:layout_marginEnd="166dp"
+        android:text="Button" />
 
 </RelativeLayout>
