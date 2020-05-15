@@ -1,11 +1,18 @@
 package com.example.suggestivekeyboardapp
 
-import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.suggestivekeyboardapp.helper.SQLiteDataBaseHelper
+import java.io.BufferedReader
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.net.URL
+import java.nio.charset.Charset
+import java.util.concurrent.Executors
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,12 +23,29 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //insertData("previous", "current", "count")
+        getRecommandations();
         viewAll()
     }
 
     override fun onDestroy() {
         dbHelper.close()
         super.onDestroy()
+    }
+
+    private fun getRecommandations() {
+        Executors.newSingleThreadExecutor().execute {
+            val count : Int = URL("https://cdn.backinapp.com/test/output/2Gram.txt").readText().toInt()
+            for (i in 1..count) {
+                val inputStream: InputStream = URL("https://cdn.backinapp.com/test/output/2Gram.csv/${i}.csv").openStream()
+                val reader = inputStream.bufferedReader()
+                for (line in reader.lines()) {
+                    if (!line.contains("PREVIOUS", ignoreCase = true)) {
+                        val data = line.split(',')
+                        dbHelper.addData(data[0], data[1], data[2])
+                    }
+                }
+            }
+        }
     }
 
     private fun insertData(previous: String, current: String, count: String) {
