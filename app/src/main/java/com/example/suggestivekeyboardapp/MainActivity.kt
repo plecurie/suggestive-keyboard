@@ -30,10 +30,24 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
                 val db = dbHelper.writableDatabase
-                val selectQuery = "SELECT * FROM sample_table WHERE PREVIOUS = ?"
+
+                val arrStr = s.toString().split(' ');
+                if (arrStr.size == 2) {
+                    val selectQuery1 = "SELECT * FROM sample_table WHERE PREVIOUS = ? and CURRENT = ?"
+                    db.rawQuery(selectQuery1, arrayOf(arrStr[0], arrStr[1])).use {
+                        if (it.moveToNext()) {
+                            val count1 = it.getInt(2) + 1
+                            val insertQuery = "UPDATE sample_table SET count = $count1 WHERE PREVIOUS = ? and CURRENT = ?"
+                            db.rawQuery(insertQuery, arrayOf(arrStr[0], arrStr[1]))
+                        }
+                    }
+                }
+
+                val selectQuery = "SELECT * FROM sample_table WHERE PREVIOUS = ? ORDER BY count DESC LIMIT 3"
                 db.rawQuery(selectQuery, arrayOf(s.toString())).use {
                     while (it.moveToNext()) {
                         println(it.getString(1))
+                        println(it.getInt(2))
                     }
                 }
             }
