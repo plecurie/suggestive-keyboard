@@ -16,7 +16,7 @@ class SQLiteDataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABAS
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE table $TABLE_NAME (PREVIOUS TEXT, CURRENT TEXT, COUNT INTEGER) ");
-        getRecommandations();
+        getRecommandations()
     }
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
@@ -49,7 +49,6 @@ class SQLiteDataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABAS
 
             val count2 : Int = URL("https://cdn.backinapp.com/test/spark/3Gram.txt").readText().toInt()
             for (i in 1..count2) {
-                println("https://cdn.backinapp.com/test/spark/3Gram.csv/${i}.csv");
                 val inputStream: InputStream = URL("https://cdn.backinapp.com/test/spark/3Gram.csv/${i}.csv").openStream()
                 val reader = inputStream.bufferedReader()
                 for (line in reader.lines()) {
@@ -63,7 +62,7 @@ class SQLiteDataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABAS
         }
     }
 
-    fun addData(previous: String, current: String, count: String) : Boolean {
+    private fun addData(previous: String, current: String, count: String) : Boolean {
         val db : SQLiteDatabase = this.writableDatabase
         val contenValues : ContentValues = ContentValues()
         contenValues.put(COL_1, previous)
