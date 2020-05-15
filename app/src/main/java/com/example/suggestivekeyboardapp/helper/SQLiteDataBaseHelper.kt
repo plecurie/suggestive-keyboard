@@ -34,20 +34,22 @@ class SQLiteDataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABAS
 
     private fun getRecommandations() {
         Executors.newSingleThreadExecutor().execute {
-            val count : Int = URL("https://cdn.backinapp.com/test/output/2Gram.txt").readText().toInt()
+            val count : Int = URL("https://cdn.backinapp.com/test/spark/2Gram.txt").readText().toInt()
             for (i in 1..count) {
-                val inputStream: InputStream = URL("https://cdn.backinapp.com/test/output/2Gram.csv/${i}.csv").openStream()
+                val inputStream: InputStream = URL("https://cdn.backinapp.com/test/spark/2Gram.csv/${i}.csv").openStream()
                 val reader = inputStream.bufferedReader()
                 for (line in reader.lines()) {
                     if (!line.contains("PREVIOUS", ignoreCase = true)) {
                         val data = line.split(',')
-                        this.addData(data[0], data[1], data[2])
+                        if (data.size == 3)
+                            this.addData(data[0], data[1], data[2])
                     }
                 }
             }
 
             val count2 : Int = URL("https://cdn.backinapp.com/test/output/3Gram.txt").readText().toInt()
             for (i in 1..count2) {
+                println("https://cdn.backinapp.com/test/output/3Gram.csv/${i}.csv");
                 val inputStream: InputStream = URL("https://cdn.backinapp.com/test/output/3Gram.csv/${i}.csv").openStream()
                 val reader = inputStream.bufferedReader()
                 for (line in reader.lines()) {
